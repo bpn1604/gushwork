@@ -1,0 +1,33 @@
+.App {
+  text-align: center;
+}
+
+.book-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.book-card {
+  border: 1px solid #ddd;
+  padding: 20px;
+  width: 200px;
+  text-align: left;
+}
+
+.book-details {
+  margin: 20px;
+  text-align: left;
+}
+
+.review {
+  border-top: 1px solid #ddd;
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+/* In App.css or a similar global CSS file */
+.content {
+  padding-top: 70px; /* Adjust this value based on your Navbar height */
+}
