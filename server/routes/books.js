@@ -2,18 +2,6 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 
-
-mongoose.connect('mongodb://localhost:27017/bookreviews', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once('open', () => {
-  console.log('Connected to MongoDB');
-});
-
-
 const bookSchema = new mongoose.Schema({
   title: String,
   author: String,
@@ -23,9 +11,10 @@ const bookSchema = new mongoose.Schema({
   averageRating: { type: Number, default: 0 },
   reviews: [{ rating: Number, comment: String }],
 });
+
 const Book = mongoose.model('Book', bookSchema);
 
-
+// Fetch all books or search books
 router.get('/', async (req, res) => {
   const { search } = req.query;
   let query = {};
@@ -49,7 +38,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-
+// Fetch a single book by ID
 router.get('/:id', async (req, res) => {
   try {
     const book = await Book.findById(req.params.id);
@@ -64,7 +53,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-
+// Submit a review for a book
 router.post('/:id/reviews', async (req, res) => {
   const { id } = req.params;
   const { rating, comment } = req.body;
@@ -78,7 +67,6 @@ router.post('/:id/reviews', async (req, res) => {
     if (book) {
       book.reviews.push({ rating, comment });
 
-      
       const totalRating = book.reviews.reduce((sum, review) => sum + review.rating, 0);
       book.averageRating = parseFloat((totalRating / book.reviews.length).toFixed(2));
 
