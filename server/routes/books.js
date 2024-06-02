@@ -12,13 +12,14 @@ const bookSchema = new mongoose.Schema({
   reviews: [{ rating: Number, comment: String }],
 });
 
-const Book = mongoose.model('Book', bookSchema);
+const Book = mongoose.model('books', bookSchema,);
 
-// Fetch all books or search books
+console.log(Book)
+
 router.get('/', async (req, res) => {
   const { search } = req.query;
   let query = {};
-
+  console.log(search)
   if (search) {
     query = {
       $or: [
@@ -31,6 +32,7 @@ router.get('/', async (req, res) => {
 
   try {
     const books = await Book.find(query);
+    console.log(books)
     res.json(books);
   } catch (error) {
     console.error('Error fetching books:', error);
