@@ -37,7 +37,7 @@ cd client
 # Install dependencies
 npm install
 
-## Start camera
+## start project
 npm start
 
 
@@ -52,5 +52,5 @@ cd server
 # Install dependencies
 npm install
 
-## Start camera
+## Start project
 npm start
